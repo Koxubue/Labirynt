@@ -1,0 +1,48 @@
+﻿@using ASD.Models;
+@model ASD.Models.Labirynt.LabiryntViewModel
+
+
+@{
+    ViewBag.Title = "Labirynt";
+}
+<p></p>
+<div class="labirynt">
+    @for (int i = 0; i < Model.Labirynt.GetLength(0); i++)
+    {
+    <div>
+        @for (int j = 0; j < Model.Labirynt.GetLength(1); j++)
+        {
+        if (i == Model.Poczatek.X && j == Model.Poczatek.Y)
+        {
+        <div class="sciezka-zielona">P</div>
+        }
+        else if (i == Model.Koniec.X && j == Model.Koniec.Y)
+        {
+        <div class="sciezka-zielona">K</div>
+        }
+        else
+        {
+        <div class="@(Model.Sciezka.Contains(new System.Drawing.Point(i, j)) ? "sciezka-zolty" : "")">@Model.Labirynt[i, j]</div>
+        }
+        }
+    </div>
+    }
+</div>
+<p>Punkt Początkowy: @Model.Poczatek.Wyswietl()</p>
+<p>Punkt Końcowy: @Model.Koniec.Wyswietl()</p>
+<p>Ścieżka: </p>
+
+
+
+@if (Model.Sciezka.Count() == 0)
+{
+    <P>"Brak Ścieżki"</P>
+}
+else
+{
+    for (int i = 0; i < Model.Sciezka.Count(); i++)
+    {
+    <nobr>@Model.Sciezka[i].Wyswietl() </nobr>
+    }
+}
+
